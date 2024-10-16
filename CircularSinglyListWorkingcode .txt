@@ -1,0 +1,157 @@
+
+class CircularSinglyList{
+    
+    static class Node{
+        private int data;
+        private Node next;
+        
+        public Node(){
+            data=0;
+            next=null;
+        }
+        public Node(int val){
+            data=val;
+            next=null;
+        }
+    }
+    
+    private Node head;
+    public CircularSinglyList(){
+        head=null;
+    }
+    
+    public void AddLast(int val){
+        Node newnode=new Node(val);
+        if(head==null){
+            head=newnode;
+            newnode.next=head;
+        }else{
+            Node trav=head;
+            while(trav.next!=head)
+            trav=trav.next;
+            trav.next=newnode;
+            newnode.next=head;
+        }
+    }
+    
+    public void Display(){
+        if(head==null)
+        System.out.println("List is empty");
+        else{
+            Node trav=head;
+            do{
+                System.out.print(trav.data+" ");
+                trav=trav.next;
+              }while(trav!=head);
+        }
+    }
+    
+    public void AddFirst(int val){
+        Node newnode=new Node(val);
+        if(head==null){
+            head=newnode;
+            newnode.next=head;
+            
+        }else{
+            Node trav=head;
+         
+            while(trav.next!=head)
+            trav=trav.next;
+            trav.next=newnode;
+            newnode.next=head;
+            head=newnode;
+            
+        }
+    }
+    
+    public void AddInBetween(int val,int pos){
+        Node newnode=new Node(val);
+        
+         if(pos==1){
+          AddFirst(val);
+       
+         }
+         if(pos<1)
+         throw new RuntimeException("Positon is invlid okey");
+          if(pos!=1){
+              
+           if(head==null){
+             head=newnode;
+             newnode.next=head;
+           }else{
+            Node trav=head;
+            for(int i=1;i<pos-1;i++)
+            trav=trav.next;
+            newnode.next=trav.next;
+            trav.next=newnode;
+             }   
+            
+        }
+    }
+    
+    public void DelFirst(){
+        if(head==null)
+        System.out.println("List is alreday empty there is no need delete delFirst okey");
+        else{
+         
+            Node trav=head;
+            while(trav.next!=head)
+            trav=trav.next;
+            head=head.next;
+            trav.next=head;
+            
+        }
+    }
+    
+    public void DelInBetween(int pos){
+        
+        if(pos==1)
+        DelFirst();
+        
+        
+        if(head==null)
+        System.out.println("List is empty there is no need delete node okey");
+        else
+        {
+            Node trav=head;
+            for(int i=1;i<pos-1;i++)
+            trav=trav.next;
+            Node temp=trav.next;
+            trav.next=temp.next;
+            
+        }
+    }
+    
+    public void DelLast(){
+        if(head==null)
+        System.out.println("List is empty there is no need to delete the node okey");
+        else{
+            
+            Node trav=head;
+            Node temp=null;
+            while(trav.next!=head)
+            {
+                temp=trav;
+                trav=trav.next;
+            }
+            temp.next=head;
+        }
+    }
+    
+ 
+}
+class RumJava{
+    public static void main(String []args){
+        CircularSinglyList c=new CircularSinglyList();
+        c.AddLast(10);
+        c.AddLast(20);
+        c.AddLast(30);
+        c.AddFirst(40);
+        c.AddInBetween(2,1);
+    //  c.DelFirst();
+    //  c.DelInBetween(5);
+        //  c.DelLast();
+    
+        c.Display();
+    }
+}
